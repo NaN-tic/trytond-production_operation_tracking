@@ -1,0 +1,11 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:production.operation.tracking,end:"
+msgid "End"
+msgstr "Final"
+
+msgctxt "field:production.operation.tracking,start:"
+msgid "Start"
+msgstr "Inici"

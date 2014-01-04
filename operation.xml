@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="production_operation_tracking_view_form">
+            <field name="model">production.operation.tracking</field>
+            <field name="type">form</field>
+            <field name="name">operation_tracking_form</field>
+            <field name="inherit"
+                ref="production_operation.production_operation_tracking_view_form" />
+        </record>
+        <record model="ir.ui.view" id="production_operation_tracking_view_list">
+            <field name="model">production.operation.tracking</field>
+            <field name="type">tree</field>
+            <field name="name">operation_tracking_list</field>
+            <field name="inherit"
+                ref="production_operation.production_operation_tracking_view_list" />
+        </record>
+
+    </data>
+</tryton>
