@@ -15,6 +15,5 @@
             <field name="inherit"
                 ref="production_operation.production_operation_tracking_view_list" />
         </record>
-
     </data>
 </tryton>
