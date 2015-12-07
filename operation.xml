@@ -15,6 +15,5 @@
                 ref="production_operation.production_operation_tracking_view_list" />
             <field name="name">operation_tracking_list</field>
         </record>
-
     </data>
 </tryton>
