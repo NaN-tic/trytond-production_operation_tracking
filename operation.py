@@ -58,40 +58,29 @@ class Operation:
         super(Operation, cls).wait(operations)
 
     def start_operation_tracking(self):
-        pool = Pool()
-        Line = pool.get('production.operation.tracking')
-        User = Pool().get('res.user')
-
-        user = User(Transaction().user)
-
+        Line = Pool().get('production.operation.tracking')
         lines = Line.search([
-                ('operation.work_center.employee', '=', user.employee.id),
+                ('operation.work_center.employee', '=',
+                    self.work_center.employee.id),
                 ('start', '!=', None),
                 ('end', '=', None),
                 ])
-
         if lines:
             self.raise_user_error('operation_running', error_args={
                     'production': self.production.rec_name,
                     'operation': lines[0].operation.rec_name,
                     })
-
         line = Line()
         line.operation = self.id
         line.uom = self.work_center.uom
-        #line.quantity = quantity
         line.start = datetime.now()
         line.save()
 
     def stop_operation_tracking(self):
-        pool = Pool()
-        Line = pool.get('production.operation.tracking')
-        User = pool.get('res.user')
-
-        user = User(Transaction().user)
-
+        Line = Pool().get('production.operation.tracking')
         lines = Line.search([
-                ('operation.work_center.employee', '=', user.employee.id),
+                ('operation.work_center.employee', '=',
+                    self.work_center.employee.id),
                 ('start', '!=', None),
                 ('end', '=', None),
                 ])
