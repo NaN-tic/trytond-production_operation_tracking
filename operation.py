@@ -23,20 +23,19 @@ class Operation:
                     },
                 })
         cls._error_messages.update({
-                'work_center_required': ('You can not run the operation of '
-                    'production %(production)s whitout a work center '
-                    'deffined.'),
+                'work_center_required': ('You can not run operation '
+                    '%(operation)s without a work center set.'),
                 'operation_running': ('You can not run a new operation in '
-                    'production %(production)s because there is an operation '
-                    'of production %(production_run)s running.'),
+                    'production %(production)s because operation %(operation)s '
+                    'is already running.'),
                 })
 
     @classmethod
     def run(cls, operations):
         for operation in operations:
             if not operation.work_center:
-                cls.raise_user_error('invalid_production_state', error_args={
-                        'production': operation.production.rec_name,
+                cls.raise_user_error('work_center_required', error_args={
+                        'operation': operation.rec_name,
                         })
             if operation.work_center.type == 'employee':
                 operation.start_operation_tracking()
@@ -74,7 +73,7 @@ class Operation:
         if lines:
             self.raise_user_error('operation_running', error_args={
                     'production': self.production.rec_name,
-                    'production_run': lines[0].operation.production.rec_name,
+                    'operation': lines[0].operation.rec_name,
                     })
 
         line = Line()
