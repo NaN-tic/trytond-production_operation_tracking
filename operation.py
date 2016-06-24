@@ -4,7 +4,6 @@ from datetime import datetime
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
-from trytond.transaction import Transaction
 
 __all__ = ['Operation', 'OperationTracking']
 __metaclass__ = PoolMeta
