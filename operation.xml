@@ -3,17 +3,17 @@
     <data>
         <record model="ir.ui.view" id="production_operation_tracking_view_form">
             <field name="model">production.operation.tracking</field>
-            <field name="type">form</field>
-            <field name="name">operation_tracking_form</field>
+            <field name="type" eval="None"/>
             <field name="inherit"
                 ref="production_operation.production_operation_tracking_view_form" />
+            <field name="name">operation_tracking_form</field>
         </record>
         <record model="ir.ui.view" id="production_operation_tracking_view_list">
             <field name="model">production.operation.tracking</field>
-            <field name="type">tree</field>
-            <field name="name">operation_tracking_list</field>
+            <field name="type" eval="None"/>
             <field name="inherit"
                 ref="production_operation.production_operation_tracking_view_list" />
+            <field name="name">operation_tracking_list</field>
         </record>
 
     </data>
