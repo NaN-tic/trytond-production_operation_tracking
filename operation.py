@@ -6,21 +6,16 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['Operation', 'OperationTracking']
-__metaclass__ = PoolMeta
+
 
 
 class Operation:
     __name__ = 'production.operation'
+    __metaclass__ = PoolMeta
 
     @classmethod
     def __setup__(cls):
         super(Operation, cls).__setup__()
-        cls._buttons.update({
-                'start_operation_tracking_wizard': {
-                    'invisible': Eval('state') != 'waiting',
-                    'icon': 'tryton-go-next',
-                    },
-                })
         cls._error_messages.update({
                 'work_center_required': ('You can not run operation '
                     '%(operation)s without a work center set.'),
@@ -92,6 +87,7 @@ class Operation:
 class OperationTracking:
     'Operation'
     __name__ = 'production.operation.tracking'
+    __metaclass__ = PoolMeta
 
     start = fields.DateTime('Start')
     end = fields.DateTime('End')
