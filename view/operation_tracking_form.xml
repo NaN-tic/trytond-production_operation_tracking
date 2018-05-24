@@ -4,8 +4,10 @@
 <data>
     <xpath expr="/form/label[@name='quantity']" position="before">
         <label name="start"/>
-        <field name="start"/>
+        <field name="start" widget="date"/>
+        <field name="start" widget="time"/>
         <label name="end"/>
-        <field name="end"/>
+        <field name="end" widget="date"/>
+        <field name="end" widget="time"/>
     </xpath>
 </data>
