@@ -3,7 +3,9 @@
      copyright notices and license terms. -->
 <data>
     <xpath expr="/tree/field[@name='quantity']" position="before">
-        <field name="start"/>
-        <field name="end"/>
+        <field name="start" widget="date"/>
+        <field name="start" widget="time"/>
+        <field name="end" widget="date"/>
+        <field name="end" widget="time"/>
     </xpath>
 </data>
