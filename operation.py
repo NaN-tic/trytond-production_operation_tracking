@@ -9,9 +9,8 @@ __all__ = ['Operation', 'OperationTracking']
 
 
 
-class Operation:
+class Operation(metaclass=PoolMeta):
     __name__ = 'production.operation'
-    __metaclass__ = PoolMeta
 
     @classmethod
     def __setup__(cls):
@@ -84,10 +83,9 @@ class Operation:
             line.save()
 
 
-class OperationTracking:
+class OperationTracking(metaclass=PoolMeta):
     'Operation'
     __name__ = 'production.operation.tracking'
-    __metaclass__ = PoolMeta
 
     start = fields.DateTime('Start')
     end = fields.DateTime('End')
