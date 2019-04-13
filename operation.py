@@ -4,32 +4,21 @@ from datetime import datetime
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['Operation', 'OperationTracking']
-
-
 
 class Operation(metaclass=PoolMeta):
     __name__ = 'production.operation'
 
     @classmethod
-    def __setup__(cls):
-        super(Operation, cls).__setup__()
-        cls._error_messages.update({
-                'work_center_required': ('You can not run operation '
-                    '%(operation)s without a work center set.'),
-                'operation_running': ('You can not run a new operation in '
-                    'production %(production)s because operation %(operation)s '
-                    'is already running.'),
-                })
-
-    @classmethod
     def run(cls, operations):
         for operation in operations:
             if not operation.work_center:
-                cls.raise_user_error('work_center_required', error_args={
-                        'operation': operation.rec_name,
-                        })
+                raise UserError(gettext(
+                    'production_operation_tracking.work_center_required',
+                        operation=operation.rec_name))
             if operation.work_center.type == 'employee':
                 operation.start_operation_tracking()
 
@@ -59,10 +48,10 @@ class Operation(metaclass=PoolMeta):
                 ('end', '=', None),
                 ])
         if lines:
-            self.raise_user_error('operation_running', error_args={
-                    'production': self.production.rec_name,
-                    'operation': lines[0].operation.rec_name,
-                    })
+            raise UserError(gettext(
+                'production_operation_tracking.operation_running',
+                    production=self.production.rec_name,
+                    operation=lines[0].operation.rec_name))
         line = Line()
         line.operation = self.id
         line.uom = self.work_center.uom
