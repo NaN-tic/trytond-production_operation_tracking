@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -9,3 +9,16 @@ msgstr "Final"
 msgctxt "field:production.operation.tracking,start:"
 msgid "Start"
 msgstr "Inici"
+
+msgctxt "model:ir.message,text:operation_running"
+msgid ""
+"You can not run a new operation in production %(production)s because "
+"operation %(operation)s is already running."
+msgstr ""
+"No pot realizar una nova operació en la producció %(production)s perquè "
+"l'operació %(operation)s encara està en procés."
+
+msgctxt "model:ir.message,text:work_center_required"
+msgid "You can not run operation %(operation)s without a work center set."
+msgstr ""
+"No pot realizar l'operació %(operation)s sense un centre de treball."
