@@ -1,12 +1,11 @@
 #The COPYRIGHT file at the top level of this repository contains the full
 #copyright notices and license terms.
-
 from trytond.pool import Pool
-from .operation import *
+from . import operation
 
 
 def register():
     Pool.register(
-        Operation,
-        OperationTracking,
+        operation.Operation,
+        operation.OperationTracking,
         module='production_operation_tracking', type_='model')

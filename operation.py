@@ -3,11 +3,11 @@
 from datetime import datetime
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 
 __all__ = ['Operation', 'OperationTracking']
+
 
 class Operation(metaclass=PoolMeta):
     __name__ = 'production.operation'
