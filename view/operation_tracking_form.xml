@@ -3,11 +3,13 @@
      copyright notices and license terms. -->
 <data>
     <xpath expr="/form/label[@name='quantity']" position="before">
-        <label name="start"/>
-        <field name="start" widget="date"/>
-        <field name="start" widget="time"/>
-        <label name="end"/>
-        <field name="end" widget="date"/>
-        <field name="end" widget="time"/>
+        <group col="6" colspan="6" id="start">
+            <label name="start"/>
+            <field name="start" widget="date"/>
+            <field name="start" widget="time"/>
+            <label name="end"/>
+            <field name="end" widget="date"/>
+            <field name="end" widget="time"/>
+        </group>
     </xpath>
 </data>

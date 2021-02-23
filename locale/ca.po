@@ -20,5 +20,4 @@ msgstr ""
 
 msgctxt "model:ir.message,text:work_center_required"
 msgid "You can not run operation %(operation)s without a work center set."
-msgstr ""
-"No pot realizar l'operació %(operation)s sense un centre de treball."
+msgstr "No pot realizar l'operació %(operation)s sense un centre de treball."

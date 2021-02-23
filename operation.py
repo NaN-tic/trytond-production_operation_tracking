@@ -41,6 +41,7 @@ class Operation(metaclass=PoolMeta):
 
     def start_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
+
         lines = Line.search([
                 ('operation.work_center.employee', '=',
                     self.work_center.employee.id),
@@ -52,6 +53,7 @@ class Operation(metaclass=PoolMeta):
                 'production_operation_tracking.operation_running',
                     production=self.production.rec_name,
                     operation=lines[0].operation.rec_name))
+
         line = Line()
         line.operation = self.id
         line.uom = self.work_center.uom
@@ -60,6 +62,7 @@ class Operation(metaclass=PoolMeta):
 
     def stop_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
+
         lines = Line.search([
                 ('operation.work_center.employee', '=',
                     self.work_center.employee.id),
@@ -75,7 +78,6 @@ class Operation(metaclass=PoolMeta):
 class OperationTracking(metaclass=PoolMeta):
     'Operation'
     __name__ = 'production.operation.tracking'
-
     start = fields.DateTime('Start')
     end = fields.DateTime('End')
 
@@ -90,6 +92,6 @@ class OperationTracking(metaclass=PoolMeta):
         second_uom_id = ModelData.get_id('product', 'uom_second')
         second_uom = Uom.search([
                 ('id', '=', second_uom_id),
-                ])
-        return Uom.compute_qty(second_uom and second_uom[0] or False, hours,
+                ], limit=1)
+        return Uom.compute_qty(second_uom and second_uom[0] or None, hours,
             self.uom)
