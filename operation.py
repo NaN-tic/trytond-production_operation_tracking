@@ -34,13 +34,16 @@ class Operation(metaclass=PoolMeta):
     @classmethod
     def wait(cls, operations):
         for operation in operations:
-            if (operation.state != "planned" and
-                operation.work_center.type == 'employee'):
+            if (operation.state != "planned" and operation.work_center
+                    and operation.work_center.type == 'employee'):
                 operation.stop_operation_tracking()
         super(Operation, cls).wait(operations)
 
     def start_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
+
+        if not self.work_center:
+            return
 
         lines = Line.search([
                 ('operation.work_center.employee', '=',
@@ -62,6 +65,9 @@ class Operation(metaclass=PoolMeta):
 
     def stop_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
+
+        if not self.work_center:
+            return
 
         lines = Line.search([
                 ('operation.work_center.employee', '=',
