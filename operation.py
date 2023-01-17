@@ -34,8 +34,8 @@ class Operation(metaclass=PoolMeta):
     @classmethod
     def wait(cls, operations):
         for operation in operations:
-            if (operation.state != "planned" and
-                operation.work_center.type == 'employee'):
+            if (operation.state != "planned" and operation.work_center and
+                    operation.work_center.type == 'employee'):
                 operation.stop_operation_tracking()
         super(Operation, cls).wait(operations)
 
