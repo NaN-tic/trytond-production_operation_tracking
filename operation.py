@@ -19,7 +19,7 @@ class Operation(metaclass=PoolMeta):
                 raise UserError(gettext(
                     'production_operation_tracking.work_center_required',
                         operation=operation.rec_name))
-            if operation.work_center.type == 'employee':
+            if operation.work_center and operation.work_center.type == 'employee':
                 operation.start_operation_tracking()
 
         super(Operation, cls).run(operations)
@@ -27,7 +27,7 @@ class Operation(metaclass=PoolMeta):
     @classmethod
     def done(cls, operations):
         for operation in operations:
-            if operation.work_center.type == 'employee':
+            if operation.work_center and operation.work_center.type == 'employee':
                 operation.stop_operation_tracking()
         super(Operation, cls).done(operations)
 
