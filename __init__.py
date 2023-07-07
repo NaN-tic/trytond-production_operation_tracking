@@ -6,6 +6,7 @@ from . import operation
 
 def register():
     Pool.register(
+        operation.Configuration,
         operation.Operation,
         operation.OperationTracking,
         module='production_operation_tracking', type_='model')

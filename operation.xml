@@ -11,5 +11,10 @@
             <field name="inherit" ref="production_operation.production_operation_tracking_view_list" />
             <field name="name">operation_tracking_list</field>
         </record>
+        <record model="ir.ui.view" id="production_configuration_view_form">
+            <field name="model">production.configuration</field>
+            <field name="inherit" ref="production.production_configuration_view_form"/>
+            <field name="name">configuration_form</field>
+        </record>
     </data>
 </tryton>

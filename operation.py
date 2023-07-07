@@ -9,6 +9,11 @@ from trytond.exceptions import UserError
 __all__ = ['Operation', 'OperationTracking']
 
 
+class Configuration(metaclass=PoolMeta):
+    __name__ = 'production.configuration'
+
+    allow_concurrent_operations = fields.Boolean('Allow Concurrent Operations')
+
 class Operation(metaclass=PoolMeta):
     __name__ = 'production.operation'
 
@@ -40,22 +45,26 @@ class Operation(metaclass=PoolMeta):
         super(Operation, cls).wait(operations)
 
     def start_operation_tracking(self):
-        Line = Pool().get('production.operation.tracking')
+        pool = Pool()
+        Config = pool.get('production.configuration')
+        Line = pool.get('production.operation.tracking')
 
         if not self.work_center:
             return
 
-        lines = Line.search([
-                ('operation.work_center.employee', '=',
-                    self.work_center.employee.id),
-                ('start', '!=', None),
-                ('end', '=', None),
-                ])
-        if lines:
-            raise UserError(gettext(
-                'production_operation_tracking.operation_running',
-                    production=self.production.rec_name,
-                    operation=lines[0].operation.rec_name))
+        config = Config(1)
+        if not config.allow_concurrent_operations:
+            lines = Line.search([
+                    ('operation.work_center.employee', '=',
+                        self.work_center.employee.id),
+                    ('start', '!=', None),
+                    ('end', '=', None),
+                    ])
+            if lines:
+                raise UserError(gettext(
+                    'production_operation_tracking.operation_running',
+                        production=self.production.rec_name,
+                        operation=lines[0].operation.rec_name))
 
         line = Line()
         line.operation = self.id
@@ -70,6 +79,7 @@ class Operation(metaclass=PoolMeta):
             return
 
         lines = Line.search([
+                ('operation', '=', self.operation),
                 ('operation.work_center.employee', '=',
                     self.work_center.employee.id),
                 ('start', '!=', None),
@@ -79,6 +89,8 @@ class Operation(metaclass=PoolMeta):
             line.end = datetime.now()
             line.quantity = line._calc_quantity(line.end)
             line.save()
+
+
 
 
 class OperationTracking(metaclass=PoolMeta):
