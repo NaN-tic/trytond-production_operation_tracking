@@ -42,6 +42,9 @@ class Operation(metaclass=PoolMeta):
     def start_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
 
+        if not self.work_center.employee:
+            return
+
         lines = Line.search([
                 ('operation.work_center.employee', '=',
                     self.work_center.employee.id),
@@ -62,6 +65,9 @@ class Operation(metaclass=PoolMeta):
 
     def stop_operation_tracking(self):
         Line = Pool().get('production.operation.tracking')
+
+        if not self.work_center.employee:
+            return
 
         lines = Line.search([
                 ('operation.work_center.employee', '=',
