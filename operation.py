@@ -70,6 +70,7 @@ class Operation(metaclass=PoolMeta):
             return
 
         lines = Line.search([
+                ('operation', '=', self),
                 ('operation.work_center.employee', '=',
                     self.work_center.employee.id),
                 ('start', '!=', None),
