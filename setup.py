@@ -9,10 +9,8 @@ from configparser import ConfigParser
 
 MODULE = 'production_operation_tracking'
 PREFIX = 'nantic'
-MODULE2PREFIX = {
-    'production_operation': 'nantic',
-    'production_route': 'nantic',
-    }
+MODULE2PREFIX = {}
+
 
 def read(fname):
     return io.open(
@@ -50,8 +48,6 @@ requires.append(get_require_version('trytond'))
 
 tests_require = [
     get_require_version('proteus'),
-    get_require_version('nantic-production_operation'),
-    get_require_version('nantic-production_route'),
 ]
 
 series = '%s.%s' % (major_version, minor_version)
@@ -60,20 +56,7 @@ if minor_version % 2:
 else:
     branch = series
 
-dependency_links = [
-    ('hg+https://bitbucket.org/nantic/'
-        'trytond-production_operation@%(branch)s'
-        '#egg=nantic-production_operation-%(series)s' % {
-            'branch': branch,
-            'series': series,
-            }),
-    ('hg+https://bitbucket.org/nantic/'
-        'trytond-production_route@%(branch)s'
-        '#egg=nantic-production_route-%(series)s' % {
-            'branch': branch,
-            'series': series,
-            }),
-    ]
+dependency_links = []
 
 if minor_version % 2:
     # Add development index for testing with proteus
@@ -94,7 +77,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         ],
     package_data={
         'trytond.modules.%s' % MODULE: (info.get('xml', [])
-            + ['tryton.cfg', 'view/*.xml', 'locale/*.po', 'tests/*.rst']),
+            + ['tryton.cfg', 'locale/*.po', 'tests/*.rst']),
         },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
