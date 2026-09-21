@@ -1,7 +1,7 @@
 #The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
 from datetime import datetime
-from trytond.model import fields
+from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
@@ -13,6 +13,7 @@ class Operation(metaclass=PoolMeta):
     __name__ = 'production.operation'
 
     @classmethod
+    @ModelView.button
     def run(cls, operations):
         for operation in operations:
             if not operation.work_center:
@@ -25,6 +26,7 @@ class Operation(metaclass=PoolMeta):
         super(Operation, cls).run(operations)
 
     @classmethod
+    @ModelView.button
     def done(cls, operations):
         for operation in operations:
             if operation.work_center and operation.work_center.type == 'employee':
@@ -32,6 +34,7 @@ class Operation(metaclass=PoolMeta):
         super(Operation, cls).done(operations)
 
     @classmethod
+    @ModelView.button
     def wait(cls, operations):
         for operation in operations:
             if (operation.state != "planned" and operation.work_center and
